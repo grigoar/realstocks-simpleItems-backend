@@ -1,4 +1,5 @@
 import { URL } from 'url';
+import constants from '../utils/constants';
 
 interface ReceivedFields {
   [key: string]: string;
@@ -6,7 +7,7 @@ interface ReceivedFields {
 const validateFields = (receivedFields: ReceivedFields) => {
   const errorsEmptyFields = Object.keys(receivedFields).map((field) => {
     const fieldValue = receivedFields[field];
-    if (field === 'simpleString') {
+    if (field === constants.SIMPLE_STRING_FIELD) {
       return checkIfStringValid(field, fieldValue);
     }
 
@@ -25,14 +26,14 @@ function checkIfStringValid(field: string, fieldValue: string) {
   if (fieldValue === null || fieldValue === undefined) {
     messages.push(`The ${field} is missing!`);
   }
-  if (field === 'simpleString') field = 'item name';
+  if (field === constants.SIMPLE_STRING_FIELD) field = 'item name';
   if (typeof fieldValue !== 'string') {
     messages.push(`The ${field} is not valid!`);
   }
-  if (fieldValue.length > 140) {
+  if (fieldValue.length > constants.MAX_LENGTH) {
     messages.push(`The ${field} is too long! - ${fieldValue.length} ch`);
   }
-  if (fieldValue.length < 3) {
+  if (fieldValue.length < constants.MIN_LENGTH) {
     messages.push(`The ${field} is too short! - ${fieldValue.length} ch`);
   }
   if (/<\/?[a-z][\s\S]*>/i.test(fieldValue)) {

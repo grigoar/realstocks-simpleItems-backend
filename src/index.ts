@@ -1,16 +1,19 @@
 import { APIGatewayProxyResult, APIGatewayEvent } from 'aws-lambda';
 
 import ISimpleItem from './models/ISimpleItem';
-import { awsDynamoDBConnection } from './services/db-connections';
+import { awsDynamoDBConnection } from './services/dbConnection';
 import validateFields from './services/validate';
 import { buildItemDBParams } from './services/itemsService';
+import constants from './utils/constants';
 
 export const handler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
   const requestPayload: ISimpleItem = JSON.parse(JSON.stringify(event));
 
-  const message = validateFields({ simpleString: requestPayload.content });
+  const message = validateFields({
+    [constants.SIMPLE_STRING_FIELD]: requestPayload.content,
+  });
 
   if (message) {
     return {
@@ -33,8 +36,10 @@ export const handler = async (
   } catch (err) {
     console.log('Error', err);
     return {
-      statusCode: 400,
-      body: JSON.stringify({ message: 'Bad Request' }),
+      statusCode: 500,
+      body: JSON.stringify({
+        message: 'Something Went Wrong. Please try again!',
+      }),
     };
   }
 };
