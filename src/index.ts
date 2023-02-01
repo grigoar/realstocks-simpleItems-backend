@@ -43,7 +43,7 @@ export const handler = async (
     const response = {
       statusCode: 201,
       headers: headers,
-      body: JSON.stringify('Item Added!'),
+      body: JSON.stringify({ message: 'Item Added!' }),
     };
     return response;
   } catch (err) {
