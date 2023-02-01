@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/grigoar/realstocks-simpleItems-backend#readme",
   "dependencies": {
-    "@types/aws-lambda": "^8.10.110"
+    "@types/aws-lambda": "^8.10.110",
+    "aws-sdk": "^2.1306.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18"
   }
 }
