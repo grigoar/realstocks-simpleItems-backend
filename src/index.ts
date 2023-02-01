@@ -1,57 +1,40 @@
-import { Context, APIGatewayProxyResult, APIGatewayEvent } from 'aws-lambda';
-import { v4 as uuidv4 } from 'uuid';
+import { APIGatewayProxyResult, APIGatewayEvent } from 'aws-lambda';
+
+import ISimpleItem from './models/ISimpleItem';
 import { awsDynamoDBConnection } from './services/db-connections';
+import validateFields from './services/validate';
+import { buildItemDBParams } from './services/itemsService';
 
-interface ISimpleItem {
-  content: string;
-}
-
-// exports.handler = async (event) => {
 export const handler = async (
-  event: APIGatewayEvent,
-  context: Context
+  event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
-  const headers = {
-    'Content-Type': 'application/json',
-  };
-
-  console.log('++++++++Event---------------');
-  console.log(event);
-  console.log('++++++++Context---------------');
-  console.log(context);
   const requestPayload: ISimpleItem = JSON.parse(JSON.stringify(event));
-  console.log('++++++++ITEM---------------');
-  console.log(requestPayload);
-  console.log(requestPayload.content);
+
+  const message = validateFields({ simpleString: requestPayload.content });
+
+  if (message) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message }),
+    };
+  }
 
   const dbClient = awsDynamoDBConnection();
-  const itemID = uuidv4();
-  console.log('----------------Item ID--------------');
-  console.log(itemID);
-  const params = {
-    TableName: 'simpleItems',
-    Item: {
-      itemID: { S: itemID },
-      content: { S: requestPayload.content },
-    },
-  };
-  try {
-    const data = await dbClient.putItem(params).promise();
 
-    console.log('-------------------------++++++++++++++++++++');
-    console.log('Success', data);
-    const response = {
+  const itemDBParams = buildItemDBParams(requestPayload);
+
+  try {
+    await dbClient.putItem(itemDBParams).promise();
+
+    return {
       statusCode: 201,
-      headers: headers,
       body: JSON.stringify({ message: 'Item Added!' }),
     };
-    return response;
   } catch (err) {
     console.log('Error', err);
     return {
       statusCode: 400,
       body: JSON.stringify({ message: 'Bad Request' }),
-      headers,
     };
   }
 };
