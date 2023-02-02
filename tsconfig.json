@@ -7,5 +7,6 @@
     "declaration": false,
     "sourceMap": false,
     "inlineSources": false
-  }
+  },
+  "exclude": ["jest.config.js"]
 }

@@ -2,7 +2,7 @@ import { APIGatewayProxyResult, APIGatewayEvent } from 'aws-lambda';
 
 import ISimpleItem from './models/ISimpleItem';
 import { awsDynamoDBConnection } from './services/dbConnection';
-import validateFields from './services/validate';
+import { validateFields } from './services/validate';
 import { buildItemDBParams } from './services/itemsService';
 import constants from './utils/constants';
 

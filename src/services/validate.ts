@@ -4,7 +4,7 @@ import constants from '../utils/constants';
 interface ReceivedFields {
   [key: string]: string;
 }
-const validateFields = (receivedFields: ReceivedFields) => {
+export const validateFields = (receivedFields: ReceivedFields) => {
   const errorsEmptyFields = Object.keys(receivedFields).map((field) => {
     const fieldValue = receivedFields[field];
     if (field === constants.SIMPLE_STRING_FIELD) {
@@ -25,10 +25,13 @@ function checkIfStringValid(field: string, fieldValue: string) {
   const messages: string[] = [];
   if (fieldValue === null || fieldValue === undefined) {
     messages.push(`The ${field} is missing!`);
+    return compoundMessages(messages);
   }
-  if (field === constants.SIMPLE_STRING_FIELD) field = 'item name';
+  if (field === constants.SIMPLE_STRING_FIELD)
+    field = constants.ITEM_CONTENT_USER_DISPLAY;
   if (typeof fieldValue !== 'string') {
     messages.push(`The ${field} is not valid!`);
+    return compoundMessages(messages);
   }
   if (fieldValue.length > constants.MAX_LENGTH) {
     messages.push(`The ${field} is too long! - ${fieldValue.length} ch`);
@@ -74,5 +77,3 @@ function compoundMessages(messages: string[]) {
   }
   return raceIDErrorMessages;
 }
-
-export default validateFields;
