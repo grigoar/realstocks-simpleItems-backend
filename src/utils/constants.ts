@@ -4,4 +4,5 @@ export default {
   SIMPLE_STRING_FIELD: 'simpleString',
   MAX_LENGTH: 140,
   MIN_LENGTH: 3,
+  PROGRAMMING_LANGUAGE_CODE: ['if(', 'for(', 'while(', '}', '{', "select *"],
 };

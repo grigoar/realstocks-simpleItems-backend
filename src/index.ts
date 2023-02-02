@@ -12,7 +12,7 @@ export const handler = async (
   const requestPayload: ISimpleItem = JSON.parse(JSON.stringify(event));
 
   const message = validateFields({
-    [constants.SIMPLE_STRING_FIELD]: requestPayload.content,
+    [constants.SIMPLE_STRING_FIELD]: requestPayload.content.trim(),
   });
 
   if (message) {

@@ -9,7 +9,7 @@ export const buildItemDBParams = (item: ISimpleItem) => {
     TableName: constants.DATABASE_NAME,
     Item: {
       itemID: { S: itemID },
-      content: { S: item.content },
+      content: { S: item.content.trim() },
     },
   };
 

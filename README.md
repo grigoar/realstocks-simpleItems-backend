@@ -1,8 +1,10 @@
 # AWS Lambda function for adding a new item
 
-## The Frontend Repo is [HERE](https://github.com/grigoar/realstocks-simpleItems-frontend)
+## The Frontend Repo is here: [Frontend Git Repo](https://github.com/grigoar/realstocks-simpleItems-frontend)
 
 ## You can open the application 🚀🚀[ON GITHUB PAGES](https://grigoar.github.io/realstocks-simpleItems-frontend/)
+
+### Setting up the project
 
 1. Clone the repository.
 2. Create a new IAM user for having the right of creating new lambda functions.
