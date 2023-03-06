@@ -18,13 +18,13 @@
   },
   "homepage": "https://github.com/grigoar/realstocks-simpleItems-backend#readme",
   "dependencies": {
-    "@types/aws-lambda": "^8.10.110",
-    "aws-sdk": "^2.1306.0",
     "ts-jest": "^29.0.5"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.110",
     "@types/jest": "^29.4.0",
     "@types/node": "^18.11.18",
-    "jest": "^29.4.1"
+    "jest": "^29.4.1",
+    "aws-sdk": "^2.1306.0"
   }
 }
