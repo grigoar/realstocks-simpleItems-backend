@@ -15,8 +15,6 @@ jobs:
         run: yarn install --production
 
         # build command should be set in your package.json scripts as: "build": "tsc"
-      - name: Build
-        run: yarn build
 
       - name: Move node_modules to dist
         run: mv node_modules dist/node_modules
